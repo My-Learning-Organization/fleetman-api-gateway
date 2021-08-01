@@ -40,6 +40,20 @@ spec:
   ports:
     - name: http
       port: 8080
-      nodePort: 30020
 
-  type: NodePort
+  type: ClusterIP
+ 
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: public-routing-apigateway
+spec:
+  rules:
+    - host: api.mukeshnhdhk.tk
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: fleetman-api-gateway
+              servicePort: 8080
